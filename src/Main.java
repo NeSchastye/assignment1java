@@ -13,8 +13,6 @@ public class Main {
         playlist.addSong(song2);
 
         playlist.printPlaylist();
-
-        System.out.println("\nComparison:");
         if (song1.getDuration() > song2.getDuration()) {
             System.out.println(song1.getTitle() + " is longer than " + song2.getTitle());
         } else {
