@@ -1,20 +1,24 @@
-import java.util.Objects;
-public class Song extends MusicItem {
+public class Song {
+    private String title;
     private Artist artist;
     private int duration; // seconds
+    private String genre;
+    private int year;
 
-    public Song(String title, Artist artist, int duration) {
-        super(title);
+    public Song(String title, Artist artist, int duration, String genre, int year) {
+        this.title = title;
         this.artist = artist;
         this.duration = duration;
+        this.genre = genre;
+        this.year = year;
     }
 
     public String getTitle() {
-            return name;
+        return title;
     }
 
     public void setTitle(String title) {
-        this.name = title;
+        this.title = title;
     }
 
     public Artist getArtist() {
@@ -32,38 +36,43 @@ public class Song extends MusicItem {
     public void setDuration(int duration) {
         this.duration = duration;
     }
-    public String getFormattedDuration() {
-        int minutes = duration / 60;
-        int seconds = duration % 60;
-        return String.format("%d:%02d", minutes, seconds);
-    }
-    @Override
-    public String toString() {
-        return "Song{title='" + name + "', artist=" + artist.getName() +
-                ", duration=" + getFormattedDuration() + "}";
+
+    public String getGenre() {
+        return genre;
     }
 
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    @Override
+    public String toString() {
+        return "Song{title='" + title + "', artist=" + artist.getName() +
+                ", duration=" + duration + " sec, genre=" + genre + ", year=" + year + "}";
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Song song = (Song) o;
-        return duration == song.duration &&
-                Objects.equals(name, song.name) &&
-                Objects.equals(artist, song.artist);
+        return year == song.year &&
+                title.equals(song.title) &&
+                artist.equals(song.artist);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, artist, duration);
-    }
-    @Override
-    public String getDetails() {
-        return "Song: " + name + " by " + artist.getName() +
-                " [" + getFormattedDuration() + "]";
-    }
-    @Override
-    public void display() {
-        System.out.println(getDetails());
+        int result = title.hashCode();
+        result = 31 * result + artist.hashCode();
+        result = 31 * result + year;
+        return result;
     }
 }
